@@ -1,0 +1,12 @@
+[project]
+name = "weatherverify"
+version = "1.0.0"
+description = "WeatherVerify - Generate Official Weather Reports for Insurance Claims, Event Refunds & Work Disputes"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "streamlit>=1.31.0",
+    "requests>=2.31.0",
+    "pandas>=2.0.0",
+    "reportlab>=4.0.0",
+]
