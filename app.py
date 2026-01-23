@@ -47,11 +47,11 @@ st.set_page_config(
 
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800;900&display=swap');
     
     /* ===== GLOBAL STYLES ===== */
     * {
-        font-family: 'Inter', sans-serif;
+        font-family: 'Manrope', sans-serif;
     }
     
     .stApp {
@@ -416,6 +416,127 @@ st.markdown("""
         text-align: center;
         margin-bottom: 2rem;
     }
+
+    /* ===== INCIDENT DETAILS SECTION ===== */
+    .incident-intro {
+        padding: 4rem 2rem 1.5rem;
+        max-width: 1000px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .incident-kicker {
+        display: inline-block;
+        background: rgba(79, 172, 254, 0.15);
+        border: 1px solid rgba(79, 172, 254, 0.4);
+        border-radius: 999px;
+        padding: 0.4rem 1rem;
+        color: #9fd7ff;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        margin-bottom: 1rem;
+    }
+
+    .incident-title {
+        font-size: 2.6rem;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 0.75rem;
+    }
+
+    .incident-desc {
+        color: rgba(255, 255, 255, 0.65);
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+    }
+
+    .incident-badges {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.75rem;
+    }
+
+    .incident-badge {
+        padding: 0.45rem 0.95rem;
+        border-radius: 999px;
+        background: rgba(79, 172, 254, 0.12);
+        border: 1px solid rgba(79, 172, 254, 0.35);
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+
+    .incident-form-title {
+        font-size: 1.7rem;
+        font-weight: 800;
+        color: #fff;
+        text-align: center;
+        margin-bottom: 0.4rem;
+    }
+
+    .incident-form-subtitle {
+        color: rgba(255, 255, 255, 0.6);
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+    }
+
+    .incident-form-divider {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.08);
+        margin: 1.5rem 0 2rem;
+    }
+
+    /* ===== STREAMLIT FORM RESKIN ===== */
+    div[data-testid="stForm"] {
+        background: linear-gradient(145deg, rgba(10, 18, 34, 0.95) 0%, rgba(20, 40, 78, 0.75) 100%);
+        border: 1px solid rgba(79, 172, 254, 0.35);
+        border-radius: 24px;
+        padding: 2.5rem 2.5rem 2rem;
+        max-width: 900px;
+        margin: 0 auto 3.5rem;
+        box-shadow: 0 30px 70px rgba(2, 8, 24, 0.6);
+        backdrop-filter: blur(8px);
+    }
+
+    div[data-testid="stForm"] label {
+        color: rgba(255, 255, 255, 0.85);
+        font-weight: 600;
+    }
+
+    div[data-testid="stForm"] input,
+    div[data-testid="stForm"] textarea,
+    div[data-testid="stForm"] select {
+        background: rgba(7, 12, 26, 0.7) !important;
+        color: #fff !important;
+        border: 1px solid rgba(79, 172, 254, 0.3) !important;
+        border-radius: 12px !important;
+    }
+
+    div[data-testid="stForm"] input:focus,
+    div[data-testid="stForm"] textarea:focus,
+    div[data-testid="stForm"] select:focus {
+        border-color: #00f2fe !important;
+        box-shadow: 0 0 0 3px rgba(0, 242, 254, 0.2) !important;
+    }
+
+    div[data-testid="stForm"] [data-testid="stFormSubmitButton"] button {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+        color: #071120 !important;
+        font-weight: 800 !important;
+        border: none !important;
+        border-radius: 12px !important;
+        padding: 0.85rem 1.2rem !important;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    div[data-testid="stForm"] [data-testid="stFormSubmitButton"] button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 30px rgba(79, 172, 254, 0.35);
+    }
     
     /* ===== VERDICT BOXES ===== */
     .verdict-significant {
@@ -532,6 +653,7 @@ st.markdown("""
         .usecase-grid { grid-template-columns: repeat(2, 1fr); }
         .testimonials-grid { grid-template-columns: 1fr; }
         .footer-content { grid-template-columns: 1fr 1fr; }
+        .incident-title { font-size: 2.2rem; }
     }
     
     @media (max-width: 768px) {
@@ -540,6 +662,9 @@ st.markdown("""
         .benefits-grid { grid-template-columns: 1fr; }
         .usecase-grid { grid-template-columns: 1fr; }
         .footer-content { grid-template-columns: 1fr; }
+        .incident-intro { padding: 3rem 1.5rem 1rem; }
+        .incident-title { font-size: 2rem; }
+        div[data-testid="stForm"] { padding: 2rem 1.5rem; }
     }
     </style>
 """, unsafe_allow_html=True)
@@ -936,6 +1061,270 @@ def main():
             </div>
         </div>
     ''', unsafe_allow_html=True)
+
+    # ===============================
+    # PAID VIEW - Post-Payment Download
+    # ===============================
+    if is_paid:
+        st.success("✅ Payment Verified! Thank you for your purchase.")
+        st.balloons()
+
+        st.subheader("📄 Download Your Official Report")
+        st.write("Your payment has been confirmed. Please enter your details again to generate and download your PDF report.")
+
+        # Create input form for paid users
+        with st.form("paid_weather_form"):
+            st.markdown('''
+                <div class="incident-form-title">📍 Enter Incident Details</div>
+                <div class="incident-form-subtitle">Confirm the location and date to generate your report.</div>
+                <div class="incident-form-divider"></div>
+            ''', unsafe_allow_html=True)
+
+            col1, col2 = st.columns(2)
+
+            with col1:
+                city_name = st.text_input(
+                    "City Name",
+                    placeholder="e.g., London, Austin, Tokyo",
+                    help="Enter the city where the weather incident occurred"
+                )
+
+            with col2:
+                max_date = date.today() - timedelta(days=1)
+                min_date = date.today() - timedelta(days=365*10)
+
+                incident_date = st.date_input(
+                    "Date of Incident",
+                    value=max_date,
+                    min_value=min_date,
+                    max_value=max_date,
+                    help="Select the date when the weather incident occurred (must be in the past)"
+                )
+
+            st.markdown("")
+            submit_button = st.form_submit_button("🔍 Generate & Download Report", use_container_width=True)
+
+        if submit_button:
+            if not city_name or city_name.strip() == "":
+                st.error("❌ Please enter a city name.")
+                return
+
+            if incident_date >= date.today():
+                st.error("❌ The incident date must be in the past.")
+                return
+
+            with st.spinner("🔍 Geocoding location..."):
+                latitude, longitude, location_full = geocode_city(city_name.strip())
+
+            if latitude is None:
+                st.error(f"❌ Could not find location: '{city_name}'. Please check the spelling and try again.")
+                return
+
+            st.success(f"✅ Location found: {location_full}")
+
+            with st.spinner("🌡️ Retrieving historical weather data..."):
+                weather_data = get_historical_weather(latitude, longitude, incident_date)
+
+            if weather_data is None:
+                st.error("❌ Could not retrieve weather data. The date might be too far in the past or outside the available range.")
+                return
+
+            st.success("✅ Weather data retrieved successfully!")
+
+            # Generate and show PDF download
+            try:
+                pdf_buffer = generate_pdf_report(
+                    city_name=city_name.strip(),
+                    location_full=location_full,
+                    latitude=latitude,
+                    longitude=longitude,
+                    incident_date=incident_date,
+                    weather_data=weather_data
+                )
+
+                filename = f"WeatherVerify_Report_{city_name.replace(' ', '_')}_{incident_date.strftime('%Y%m%d')}.pdf"
+
+                st.download_button(
+                    label="📥 Download PDF Report",
+                    data=pdf_buffer,
+                    file_name=filename,
+                    mime="application/pdf",
+                    use_container_width=True
+                )
+
+                st.success("✅ PDF report ready for download!")
+
+            except Exception as e:
+                st.error(f"❌ Error generating PDF: {str(e)}")
+
+        st.markdown("---")
+
+        # Reset button to clear payment status
+        if st.button("🔄 Start New Report (Clear Session)", use_container_width=True):
+            st.query_params.clear()
+            st.rerun()
+
+        return  # Exit early for paid view
+
+    # ===============================
+    # INCIDENT DETAILS - PRIMARY FORM
+    # ===============================
+    st.markdown('''
+        <div class="incident-intro">
+            <div class="incident-kicker">Start your report in seconds</div>
+            <h2 class="incident-title">📍 Enter Incident Details</h2>
+            <p class="incident-desc">
+                Provide the location and date of the weather event. We will instantly pull official archive data
+                and prepare a professional report you can use for claims, refunds, and disputes.
+            </p>
+            <div class="incident-badges">
+                <span class="incident-badge">Official archive data</span>
+                <span class="incident-badge">Instant preview</span>
+                <span class="incident-badge">$5 PDF report</span>
+            </div>
+        </div>
+    ''', unsafe_allow_html=True)
+
+    # Create input form
+    with st.form("weather_form"):
+        st.markdown('''
+            <div class="incident-form-title">Start with the basics</div>
+            <div class="incident-form-subtitle">Tell us where and when the incident occurred. We will handle the rest.</div>
+            <div class="incident-form-divider"></div>
+        ''', unsafe_allow_html=True)
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            city_name = st.text_input(
+                "City Name",
+                placeholder="e.g., London, Austin, Tokyo",
+                help="Enter the city where the weather incident occurred"
+            )
+
+        with col2:
+            # Set max date to yesterday to ensure only past dates
+            max_date = date.today() - timedelta(days=1)
+            min_date = date.today() - timedelta(days=365*10)  # 10 years back
+
+            incident_date = st.date_input(
+                "Date of Incident",
+                value=max_date,
+                min_value=min_date,
+                max_value=max_date,
+                help="Select the date when the weather incident occurred (must be in the past)"
+            )
+
+        st.markdown("")
+        submit_button = st.form_submit_button("🔍 Generate Weather Report", use_container_width=True)
+
+    # Process form submission
+    if submit_button:
+        # Validation
+        if not city_name or city_name.strip() == "":
+            st.error("❌ Please enter a city name.")
+            return
+
+        if incident_date >= date.today():
+            st.error("❌ The incident date must be in the past.")
+            return
+
+        # Show progress
+        with st.spinner("🔍 Geocoding location..."):
+            latitude, longitude, location_full = geocode_city(city_name.strip())
+
+        if latitude is None:
+            st.error(f"❌ Could not find location: '{city_name}'. Please check the spelling and try again.")
+            return
+
+        st.success(f"✅ Location found: {location_full}")
+
+        # Retrieve weather data
+        with st.spinner("🌡️ Retrieving historical weather data..."):
+            weather_data = get_historical_weather(latitude, longitude, incident_date)
+
+        if weather_data is None:
+            st.error("❌ Could not retrieve weather data. The date might be too far in the past or outside the available range.")
+            return
+
+        st.success("✅ Weather data retrieved successfully!")
+
+        st.markdown("---")
+
+        # Display results (FREE - show weather data)
+        st.subheader("📊 Weather Analysis")
+
+        # Metrics in columns
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            st.metric(
+                label="🌧️ Total Rainfall",
+                value=f"{weather_data['precipitation_sum']:.2f} mm",
+                delta=f"{weather_data['precipitation_hours']:.1f} hours"
+            )
+
+        with col2:
+            st.metric(
+                label="🌡️ Temperature Range",
+                value=f"{weather_data['temperature_max']:.1f}°C",
+                delta=f"Min: {weather_data['temperature_min']:.1f}°C"
+            )
+
+        with col3:
+            st.metric(
+                label="💨 Max Wind Speed",
+                value=f"{weather_data['windspeed_max']:.1f} km/h"
+            )
+
+        st.markdown("")
+
+        # Verdict
+        precipitation = weather_data['precipitation_sum']
+        if precipitation > 5.0:
+            st.markdown(
+                f'<div class="verdict-significant">⚠️ SIGNIFICANT RAIN DETECTED<br/>'
+                f'{precipitation:.2f}mm of rainfall recorded</div>',
+                unsafe_allow_html=True
+            )
+        else:
+            st.markdown(
+                f'<div class="verdict-minor">✅ MINOR/NO RAIN<br/>'
+                f'{precipitation:.2f}mm of rainfall recorded</div>',
+                unsafe_allow_html=True
+            )
+
+        st.markdown("---")
+
+        # ===============================
+        # PAYWALL - Show Payment CTA
+        # ===============================
+        st.markdown('''
+            <div class="cta-section">
+                <div class="cta-title">📄 Download Your Official PDF Report</div>
+                <div class="cta-subtitle">Get a professional, court-ready document to submit with your claim</div>
+            </div>
+        ''', unsafe_allow_html=True)
+
+        # PayPal Hosted Button - Direct URL (no JavaScript needed)
+        # IMPORTANT: Configure Auto-Return URL in PayPal Button Settings to: YOUR_APP_URL?payment=success_confirmed
+        PAYPAL_PAYMENT_URL = "https://www.paypal.com/ncp/payment/9MYQFDP4BGTBE"
+
+        st.link_button(
+            label="💳 Pay $5 to Download Official PDF",
+            url=PAYPAL_PAYMENT_URL,
+            use_container_width=True
+        )
+
+        st.caption("💡 Secure PayPal checkout • Instant redirect back to download your report")
+
+        st.markdown('''
+            <div style="text-align: center; margin-top: 1rem; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">
+                    🔒 Secure Payment via PayPal • No account required • All major cards accepted
+                </span>
+            </div>
+        ''', unsafe_allow_html=True)
     
     # ===============================
     # WHY USE WEATHERVERIFY - BENEFITS
@@ -1172,247 +1561,6 @@ def main():
             </div>
         </div>
     ''', unsafe_allow_html=True)
-    
-    # ===============================
-    # PAID VIEW - Post-Payment Download
-    # ===============================
-    if is_paid:
-        st.success("✅ Payment Verified! Thank you for your purchase.")
-        st.balloons()
-        
-        st.subheader("📄 Download Your Official Report")
-        st.write("Your payment has been confirmed. Please enter your details again to generate and download your PDF report.")
-        
-        # Create input form for paid users
-        with st.form("paid_weather_form"):
-            st.subheader("📍 Enter Incident Details")
-            
-            col1, col2 = st.columns(2)
-            
-            with col1:
-                city_name = st.text_input(
-                    "City Name",
-                    placeholder="e.g., London, Austin, Tokyo",
-                    help="Enter the city where the weather incident occurred"
-                )
-            
-            with col2:
-                max_date = date.today() - timedelta(days=1)
-                min_date = date.today() - timedelta(days=365*10)
-                
-                incident_date = st.date_input(
-                    "Date of Incident",
-                    value=max_date,
-                    min_value=min_date,
-                    max_value=max_date,
-                    help="Select the date when the weather incident occurred (must be in the past)"
-                )
-            
-            st.markdown("")
-            submit_button = st.form_submit_button("🔍 Generate & Download Report", use_container_width=True)
-        
-        if submit_button:
-            if not city_name or city_name.strip() == "":
-                st.error("❌ Please enter a city name.")
-                return
-            
-            if incident_date >= date.today():
-                st.error("❌ The incident date must be in the past.")
-                return
-            
-            with st.spinner("🔍 Geocoding location..."):
-                latitude, longitude, location_full = geocode_city(city_name.strip())
-            
-            if latitude is None:
-                st.error(f"❌ Could not find location: '{city_name}'. Please check the spelling and try again.")
-                return
-            
-            st.success(f"✅ Location found: {location_full}")
-            
-            with st.spinner("🌡️ Retrieving historical weather data..."):
-                weather_data = get_historical_weather(latitude, longitude, incident_date)
-            
-            if weather_data is None:
-                st.error("❌ Could not retrieve weather data. The date might be too far in the past or outside the available range.")
-                return
-            
-            st.success("✅ Weather data retrieved successfully!")
-            
-            # Generate and show PDF download
-            try:
-                pdf_buffer = generate_pdf_report(
-                    city_name=city_name.strip(),
-                    location_full=location_full,
-                    latitude=latitude,
-                    longitude=longitude,
-                    incident_date=incident_date,
-                    weather_data=weather_data
-                )
-                
-                filename = f"WeatherVerify_Report_{city_name.replace(' ', '_')}_{incident_date.strftime('%Y%m%d')}.pdf"
-                
-                st.download_button(
-                    label="📥 Download PDF Report",
-                    data=pdf_buffer,
-                    file_name=filename,
-                    mime="application/pdf",
-                    use_container_width=True
-                )
-                
-                st.success("✅ PDF report ready for download!")
-                
-            except Exception as e:
-                st.error(f"❌ Error generating PDF: {str(e)}")
-        
-        st.markdown("---")
-        
-        # Reset button to clear payment status
-        if st.button("🔄 Start New Report (Clear Session)", use_container_width=True):
-            st.query_params.clear()
-            st.rerun()
-        
-        return  # Exit early for paid view
-    
-    # ===============================
-    # FREE VIEW - Default Experience
-    # ===============================
-    
-    # Create input form
-    with st.form("weather_form"):
-        st.subheader("📍 Enter Incident Details")
-        
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            city_name = st.text_input(
-                "City Name",
-                placeholder="e.g., London, Austin, Tokyo",
-                help="Enter the city where the weather incident occurred"
-            )
-        
-        with col2:
-            # Set max date to yesterday to ensure only past dates
-            max_date = date.today() - timedelta(days=1)
-            min_date = date.today() - timedelta(days=365*10)  # 10 years back
-            
-            incident_date = st.date_input(
-                "Date of Incident",
-                value=max_date,
-                min_value=min_date,
-                max_value=max_date,
-                help="Select the date when the weather incident occurred (must be in the past)"
-            )
-        
-        st.markdown("")
-        submit_button = st.form_submit_button("🔍 Generate Weather Report", use_container_width=True)
-    
-    # Process form submission
-    if submit_button:
-        # Validation
-        if not city_name or city_name.strip() == "":
-            st.error("❌ Please enter a city name.")
-            return
-        
-        if incident_date >= date.today():
-            st.error("❌ The incident date must be in the past.")
-            return
-        
-        # Show progress
-        with st.spinner("🔍 Geocoding location..."):
-            latitude, longitude, location_full = geocode_city(city_name.strip())
-        
-        if latitude is None:
-            st.error(f"❌ Could not find location: '{city_name}'. Please check the spelling and try again.")
-            return
-        
-        st.success(f"✅ Location found: {location_full}")
-        
-        # Retrieve weather data
-        with st.spinner("🌡️ Retrieving historical weather data..."):
-            weather_data = get_historical_weather(latitude, longitude, incident_date)
-        
-        if weather_data is None:
-            st.error("❌ Could not retrieve weather data. The date might be too far in the past or outside the available range.")
-            return
-        
-        st.success("✅ Weather data retrieved successfully!")
-        
-        st.markdown("---")
-        
-        # Display results (FREE - show weather data)
-        st.subheader("📊 Weather Analysis")
-        
-        # Metrics in columns
-        col1, col2, col3 = st.columns(3)
-        
-        with col1:
-            st.metric(
-                label="🌧️ Total Rainfall",
-                value=f"{weather_data['precipitation_sum']:.2f} mm",
-                delta=f"{weather_data['precipitation_hours']:.1f} hours"
-            )
-        
-        with col2:
-            st.metric(
-                label="🌡️ Temperature Range",
-                value=f"{weather_data['temperature_max']:.1f}°C",
-                delta=f"Min: {weather_data['temperature_min']:.1f}°C"
-            )
-        
-        with col3:
-            st.metric(
-                label="💨 Max Wind Speed",
-                value=f"{weather_data['windspeed_max']:.1f} km/h"
-            )
-        
-        st.markdown("")
-        
-        # Verdict
-        precipitation = weather_data['precipitation_sum']
-        if precipitation > 5.0:
-            st.markdown(
-                f'<div class="verdict-significant">⚠️ SIGNIFICANT RAIN DETECTED<br/>'
-                f'{precipitation:.2f}mm of rainfall recorded</div>',
-                unsafe_allow_html=True
-            )
-        else:
-            st.markdown(
-                f'<div class="verdict-minor">✅ MINOR/NO RAIN<br/>'
-                f'{precipitation:.2f}mm of rainfall recorded</div>',
-                unsafe_allow_html=True
-            )
-        
-        st.markdown("---")
-        
-        # ===============================
-        # PAYWALL - Show Payment CTA
-        # ===============================
-        st.markdown('''
-            <div class="cta-section">
-                <div class="cta-title">📄 Download Your Official PDF Report</div>
-                <div class="cta-subtitle">Get a professional, court-ready document to submit with your claim</div>
-            </div>
-        ''', unsafe_allow_html=True)
-        
-        # PayPal Hosted Button - Direct URL (no JavaScript needed)
-        # IMPORTANT: Configure Auto-Return URL in PayPal Button Settings to: YOUR_APP_URL?payment=success_confirmed
-        PAYPAL_PAYMENT_URL = "https://www.paypal.com/ncp/payment/9MYQFDP4BGTBE"
-        
-        st.link_button(
-            label="💳 Pay $5 to Download Official PDF",
-            url=PAYPAL_PAYMENT_URL,
-            use_container_width=True
-        )
-        
-        st.caption("💡 Secure PayPal checkout • Instant redirect back to download your report")
-        
-        st.markdown('''
-            <div style="text-align: center; margin-top: 1rem; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
-                <span style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">
-                    🔒 Secure Payment via PayPal • No account required • All major cards accepted
-                </span>
-            </div>
-        ''', unsafe_allow_html=True)
     
     # ===============================
     # COMPREHENSIVE FOOTER
